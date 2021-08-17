@@ -14,5 +14,6 @@ namespace MyCompany.BuildCore.EntityFrameworkCore
             : base(options)
         {
         }
+        public virtual DbSet<Entities.Student> Students { get; set; }
     }
 }
