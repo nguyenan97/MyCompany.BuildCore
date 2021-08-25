@@ -53,6 +53,14 @@ namespace MyCompany.BuildCore.Web.Startup
                         url: "About",
                         icon: "fas fa-info-circle"
                     )
+                )
+                .AddItem(
+                    new MenuItemDefinition(
+                        PageNames.About,
+                        L("Student"),
+                        url: "Student",
+                        icon: "fas fa-info-circle"
+                    )
                 ).AddItem( // Menu items below is just for demonstration!
                     new MenuItemDefinition(
                         "MultiLevelMenu",

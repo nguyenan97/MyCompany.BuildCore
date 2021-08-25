@@ -116,5 +116,13 @@
     <text name="Clear">Clear</text>
     <text name="ResetPasswordStepOneInfo">1. Enter your administrator password</text>
     <text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
+    <text name="Id">Id</text>
+    <text name="Action">Action</text> 
+    
+    <!--Student-->
+    <text name="Student">Student</text>
+    <text name="Student.List.Name">Name</text>
+    <text name="Student.List.NoDataFound">No data available in table</text>
+    
   </texts>
 </localizationDictionary>

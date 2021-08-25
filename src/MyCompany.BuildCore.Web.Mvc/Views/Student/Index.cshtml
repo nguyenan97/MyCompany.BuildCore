@@ -1,0 +1,67 @@
+﻿@using MyCompany.BuildCore.Web.Startup
+
+@{
+    ViewBag.Title = L("Student");
+    ViewBag.CurrentPageName = PageNames.Student;
+}
+
+@section styles
+{
+    
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8">
+                <h1>@L("Student")</h1>
+            </div>
+            <div class="col-md-3">
+                <div class="abp-advanced-search">
+                    <form id="frmSearchStudentListForm" action="Student/SearchStudentList" method="post" class="form-horizontal ajax-form" data-ajax-placeholder="#divStudentListContent" data-ajax-block-placeholder="#divStudentListContent">
+                        <input type="hidden" id="frmSearchStudentListForm_PageIndex" name="PageIndex" value="0" />
+                        <input type="hidden" id="frmSearchStudentListForm_PageSize" name="PageSize" value="25" />
+                        <input type="hidden" name="SortBy" value="Country" />
+                        <input type="hidden" name="SortDirection" value="asc" />
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <button type="button" class="btn bg-blue btn-search">
+                                    <span class="fas fa-search" aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <input type="text" name="Keyword" class="form-control txt-search" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <a href="javascript:void(0)" onclick="createStudent()" class="btn bg-blue float-sm-right w-100">
+                    @L("Create")
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div id="divStudentListContent" class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap">
+                                @await Html.PartialAsync("Partials/StudentTableListHeader")
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    <script src="~/js/abp.ajaxForm.js" asp-append-version="true"></script>
+    <script src="~/view-resources/Views/Students/Index.js" asp-append-version="true"></script>
+}

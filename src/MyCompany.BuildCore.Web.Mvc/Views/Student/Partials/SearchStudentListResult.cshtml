@@ -1,0 +1,59 @@
+﻿@using MyCompany.BuildCore.Web.Views.Shared.Components.Paging
+@using MyCompany.BuildCore.Web.Models.Student
+
+@model SearchStudentListResultModel
+@{
+    PagingModel pagingModel = new PagingModel
+    {
+        CurrentPageIndex = Model.PageIndex,
+        PageSize = Model.PageSize,
+        TotalCount = Model.StudentDtoList.TotalCount,
+        PageSizeHtmlId = "frmSearchCityListForm_PageSize",
+        ItemClickJsFunc = "searchCityList({0})"
+    };
+}
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table id="tblCityList" class="table table-hover">
+                @await Html.PartialAsync("Partials/StudentTableListHeader")
+                <tbody>
+                    @if (Model.StudentDtoList != null && Model.StudentDtoList.TotalCount > 0)
+                    {
+                        foreach (var countryDto in Model.StudentDtoList.Items)
+                        {
+                            <tr>
+                                <td>@countryDto.StudentId</td>
+                                <td>@countryDto.Name</td>
+                                
+                                <td class="action-cell">
+                                    <a class="btn btn-sm" href="javascript:void(0)" title="@L("Edit")" onclick="editCity('@countryDto.StudentId')">
+                                        <i class="fa fa-pencil-alt text-primary"></i>
+                                    </a>
+                                    <a class="btn btn-sm" href="javascript:void(0)" title="@L("Delete")" onclick="deleteCity('@countryDto.StudentId', @string.Format("\"{0}\"", countryDto.Name.Replace("\"","")))">
+                                        <i class="fa fa-trash-alt text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" style="text-align: center">
+                                @L("Student.List.NoDataFound")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @if (Model.StudentDtoList != null && Model.StudentDtoList.TotalCount > 0)
+    {
+        <div class="card-footer clearfix">
+            @await Html.PartialAsync("Components/Paging/Default", pagingModel)
+        </div>
+    }
+</div>

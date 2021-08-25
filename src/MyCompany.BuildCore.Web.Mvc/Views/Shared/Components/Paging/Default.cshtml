@@ -1,0 +1,51 @@
+﻿@using MyCompany.BuildCore.Web.Views.Shared.Components.Paging
+@model PagingModel
+@{
+    var pageCount = (int)Math.Ceiling((double)Model.TotalCount / Model.PageSize);
+    int startIndex = (int)Math.Max(0, Math.Min(Model.CurrentPageIndex + Math.Ceiling((Double)5 / 2), pageCount) - 5);
+
+    Guid cboPageSizeId = Guid.NewGuid();
+}
+<div class="row">
+    <div class="col-sm-6">
+        <div style="float: left">@L("Paging.{0}-{1} of {2} items", (Model.CurrentPageIndex * Model.PageSize + 1), (Model.CurrentPageIndex * Model.PageSize + Model.PageSize > Model.TotalCount ? Model.TotalCount : Model.CurrentPageIndex * Model.PageSize + Model.PageSize), Model.TotalCount)</div>
+        <div style="float: left; margin-left: 25px; margin-right: 5px">@L("Paging.Show")</div>
+        <div style="float: left; margin-top: -3px;">
+            <select id="@cboPageSizeId" class="custom-select custom-select-sm form-control form-control-sm" style="width: 60px;">
+                <option value="10">10</option>
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+        <div style="float: left; margin-left: 5px;">@L("Paging.entries")</div>
+    </div>
+    <div class="col-md-6">
+        <ul class="pagination pagination-sm m-0 float-right">
+            @if (Model.CurrentPageIndex > 0)
+            {
+                <li class="page-item"><a class="page-link" href="javascript:void(0)" title="@L("Paging.First")" onclick="@string.Format(Model.ItemClickJsFunc, 0)">&#171;</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)" title="@L("Paging.Previous")" onclick="@string.Format(Model.ItemClickJsFunc, Model.CurrentPageIndex - 1)">&#8249;</a></li>
+            }
+            @for (int i = startIndex; i < startIndex + 5 && i < pageCount; i++)
+            {
+                <li class="page-item @(Model.CurrentPageIndex == i ? "active" : "")"><a class="page-link" href="javascript:void(0)" onclick="@string.Format(Model.ItemClickJsFunc, i)">@(i + 1)</a></li>
+            }
+            @if (Model.CurrentPageIndex < pageCount - 1)
+            {
+                <li class="page-item"><a class="page-link" href="javascript:void(0)" title="@L("Paging.Next")" onclick="@string.Format(Model.ItemClickJsFunc, Model.CurrentPageIndex + 1)">&#8250;</a></li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)" title="@L("Paging.Last")" onclick="@string.Format(Model.ItemClickJsFunc, pageCount - 1)">&#187;</a></li>
+            }
+        </ul>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+        $('#@cboPageSizeId').val(@Model.PageSize);
+        $('#@cboPageSizeId').change(function () {
+            $('#@Model.PageSizeHtmlId').val($(this).val());
+            @string.Format(Model.ItemClickJsFunc, 0)
+        });
+
+</script>

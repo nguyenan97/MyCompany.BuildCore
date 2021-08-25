@@ -9,7 +9,7 @@ namespace MyCompany.BuildCore.Entities
     public class Student : FullAuditedEntity
     {
         [Key]
-        public Guid ArtistID { get; set; }
+        public Guid StudentId { get; set; }
 
         [StringLength(256)]
         public string Name { get; set; }
